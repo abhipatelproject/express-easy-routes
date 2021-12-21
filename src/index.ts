@@ -1,18 +1,18 @@
-import { Router, NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import requireDir = require('require-dir');
 
-export type RouteDef = {
+export interface IRouteDef {
   active: boolean;
   chain: ((req: Request, res: Response, next: NextFunction) => void)[];
-};
+}
 
 export abstract class BaseRoute {
-  abstract active: boolean;
-  get?: RouteDef | undefined = undefined;
-  post?: RouteDef | undefined = undefined;
-  put?: RouteDef | undefined = undefined;
-  delete?: RouteDef | undefined = undefined;
-  patch?: RouteDef | undefined = undefined;
+  public abstract active: boolean;
+  public get?: IRouteDef | undefined = undefined;
+  public post?: IRouteDef | undefined = undefined;
+  public put?: IRouteDef | undefined = undefined;
+  public delete?: IRouteDef | undefined = undefined;
+  public patch?: IRouteDef | undefined = undefined;
 }
 
 function parseKey(rawKey: string): string {
@@ -20,7 +20,7 @@ function parseKey(rawKey: string): string {
   return parsedKey;
 }
 
-function setupRoutes(items: any, router: Router, rootPath: string | undefined = undefined) {
+function setupRoutes(items: any, router: Router, rootPath?: string) {
   const keys = Object.keys(items);
   let root = rootPath;
   if (!root) {
@@ -56,13 +56,9 @@ export function initRoutes(
 ) {
   const router = Router();
 
-  try {
-    if (options.path) {
-      let items = requireDir(options.path, { recurse: true });
-      setupRoutes(items, router);
-    }
-  } catch (err) {
-    console.log('routes could not be initialized');
+  if (options.path) {
+    const items = requireDir(options.path, { recurse: true });
+    setupRoutes(items, router);
   }
 
   return router;

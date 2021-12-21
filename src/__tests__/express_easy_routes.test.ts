@@ -1,7 +1,5 @@
-import { initRoutes } from '../index';
-
-test('My Greeter', () => {
-  var router = initRoutes({
-    path: '',
+describe('sample test', () => {
+  it('hello test', () => {
+    expect('hello world').toBe('hello world');
   });
 });
