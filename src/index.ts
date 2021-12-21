@@ -51,13 +51,13 @@ export function initRoutes(
   options: {
     path: string;
   } = {
-    path: './routes',
+    path: '/routes',
   },
 ) {
   const router = Router();
 
   if (options.path) {
-    const items = requireDir(options.path, { recurse: true });
+    const items = requireDir(__dirname + options.path, { recurse: true });
     setupRoutes(items, router);
   }
 
