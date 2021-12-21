@@ -34,9 +34,29 @@ function setupRoutes(items: any, router: Router, rootPath?: string) {
 
       if (route.active) {
         const currentRouter = Router();
-        if (route.get?.active) {
+        if (route.get?.active && route.get?.chain.length > 0) {
           const parsedKey = parseKey(key);
           currentRouter.get(parsedKey, route.get?.chain);
+        }
+
+        if (route.post?.active && route.post?.chain.length > 0) {
+          const parsedKey = parseKey(key);
+          currentRouter.post(parsedKey, route.post?.chain);
+        }
+
+        if (route.put?.active && route.put?.chain.length > 0) {
+          const parsedKey = parseKey(key);
+          currentRouter.post(parsedKey, route.put?.chain);
+        }
+
+        if (route.delete?.active && route.delete?.chain.length > 0) {
+          const parsedKey = parseKey(key);
+          currentRouter.post(parsedKey, route.delete?.chain);
+        }
+
+        if (route.patch?.active && route.patch?.chain.length > 0) {
+          const parsedKey = parseKey(key);
+          currentRouter.post(parsedKey, route.patch?.chain);
         }
 
         router.use(root, currentRouter);
