@@ -1,6 +1,7 @@
 # Express Easy Routes
 
-Provides an easy to setup routes for an express api based on a folder hierarchy. 
+Provides an easy to setup routes for an express api based on a folder hierarchy.
+
 ```
 /routes
     - index.ts                                      == /
@@ -10,6 +11,21 @@ Provides an easy to setup routes for an express api based on a folder hierarchy.
         - $id.edit.$name.ts                         == /test/:id/edit/:name
 ```
 
-TODO: Add example
+## Basic example
 
+```js
+const app = express();
+const { initRoutes } = require('express-easy-routes');
+or;
+import express from 'express';
+import { initRoutes } from 'express-easy-routes';
 
+app.use(
+  '/',
+  initRoutes({
+    path: __dirname + '/routes',
+  }),
+);
+
+//rest of initialization
+```

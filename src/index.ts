@@ -24,7 +24,7 @@ function setupRoutes(items: any, router: Router, rootPath?: string) {
   const keys = Object.keys(items);
   let root = rootPath;
   if (!root) {
-    root = '/';
+    root = '';
   }
   for (const key of keys) {
     const item = items[key];
@@ -62,7 +62,7 @@ function setupRoutes(items: any, router: Router, rootPath?: string) {
         router.use(root, currentRouter);
       }
     } else {
-      setupRoutes(item, router, `/${key}`);
+      setupRoutes(item, router, `${root}/${key}`);
     }
   }
 }
