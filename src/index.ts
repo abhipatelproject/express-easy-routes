@@ -47,17 +47,11 @@ function setupRoutes(items: any, router: Router, rootPath?: string) {
   }
 }
 
-export function initRoutes(
-  options: {
-    path: string;
-  } = {
-    path: '/routes',
-  },
-) {
+export function initRoutes(options: { path: string }) {
   const router = Router();
 
   if (options.path) {
-    const items = requireDir(__dirname + options.path, { recurse: true });
+    const items = requireDir(options.path, { recurse: true });
     setupRoutes(items, router);
   }
 
